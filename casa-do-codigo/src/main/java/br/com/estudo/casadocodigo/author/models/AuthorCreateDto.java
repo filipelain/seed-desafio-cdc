@@ -1,5 +1,6 @@
 package br.com.estudo.casadocodigo.author.models;
 
+import br.com.estudo.casadocodigo.author.validators.EmailNotDuplicated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
@@ -14,6 +15,7 @@ public class AuthorCreateDto {
     private String name;
     @NotNull(message = "Email is required")
     @Email(message = "Invalid email")
+    @EmailNotDuplicated()
     private String email;
     @NotBlank(message = "Description is required")
     @Max(value = 400, message = "Description must be less than 400 characters")

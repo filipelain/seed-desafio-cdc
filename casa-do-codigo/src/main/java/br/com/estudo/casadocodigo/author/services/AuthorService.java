@@ -44,4 +44,8 @@ public class AuthorService {
 
     }
 
+    public boolean existsByEmail(String email) {
+        return authorRepository.existsByEmail(email);
+    }
+
 }

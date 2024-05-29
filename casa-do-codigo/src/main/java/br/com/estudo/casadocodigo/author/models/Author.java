@@ -1,5 +1,6 @@
 package br.com.estudo.casadocodigo.author.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
+    @Column(unique = true)
     private String email;
     private String description;
 

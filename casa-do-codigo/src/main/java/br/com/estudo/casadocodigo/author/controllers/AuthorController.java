@@ -3,6 +3,7 @@ package br.com.estudo.casadocodigo.author.controllers;
 import br.com.estudo.casadocodigo.author.models.Author;
 import br.com.estudo.casadocodigo.author.models.AuthorCreateDto;
 import br.com.estudo.casadocodigo.author.services.AuthorService;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class AuthorController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Author> create(@RequestBody AuthorCreateDto authorCreate) {
+    public ResponseEntity<Author> create(@Valid @RequestBody AuthorCreateDto authorCreate) {
         return ResponseEntity.ok(authorService.create(authorCreate));
     }
 }
