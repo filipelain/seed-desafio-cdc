@@ -1,0 +1,17 @@
+### GET request to example server
+GET http://localhost:8080/author/
+
+### GET NOT FOUND request to example server
+
+GET http://localhost:8080/author/1
+
+
+### POST request to example server
+POST http://localhost:8080/author/
+content-type: application/json
+
+{
+  "name": "John Doe",
+  "email": "johndoe@email.com",
+  "description": "John Doe is a ghost writer"
+}
