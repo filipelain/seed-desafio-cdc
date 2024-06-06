@@ -1,0 +1,11 @@
+### GET request to example server
+GET http://localhost:8080/category/
+
+
+### POST request Category
+POST http://localhost:8080/category/
+content-type: application/json
+
+{
+  "name": "Category 1"
+}
