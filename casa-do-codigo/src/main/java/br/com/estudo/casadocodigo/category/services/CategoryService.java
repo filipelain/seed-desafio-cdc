@@ -1,5 +1,7 @@
 package br.com.estudo.casadocodigo.category.services;
 
+import static br.com.estudo.casadocodigo.common.UUIDFunction.getUUID;
+
 import br.com.estudo.casadocodigo.category.erros.CategoryCreateException;
 import br.com.estudo.casadocodigo.category.model.Category;
 import br.com.estudo.casadocodigo.category.model.CategoryCreateDto;
@@ -23,5 +25,12 @@ public class CategoryService {
                 .map(Category::new)
                 .map(categoryRepository::save)
                 .orElseThrow(()-> new CategoryCreateException("Error creating category"));
+    }
+
+    public Category findById(String categoryId) {
+        return Optional.of(categoryId)
+                .flatMap(getUUID)
+                .flatMap(categoryRepository::findById)
+                .orElseThrow(() -> new CategoryCreateException("Category not found"));
     }
 }

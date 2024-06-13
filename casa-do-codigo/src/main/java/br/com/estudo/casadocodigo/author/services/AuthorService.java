@@ -4,9 +4,9 @@ import br.com.estudo.casadocodigo.author.erros.AuthorNotFoundException;
 import br.com.estudo.casadocodigo.author.models.Author;
 import br.com.estudo.casadocodigo.author.models.AuthorCreateDto;
 import br.com.estudo.casadocodigo.author.repositories.AuthorRepository;
+import br.com.estudo.casadocodigo.common.UUIDFunction;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,22 +26,14 @@ public class AuthorService {
     }
 
     public Author findById(String id) {
-        return getUUID(id)
+        return Optional.of(id)
+                .flatMap(UUIDFunction.getUUID)
                 .flatMap(authorRepository::findById)
                 .orElseThrow(() -> new AuthorNotFoundException(id));
     }
 
     public List<Author> findAll() {
         return authorRepository.findAll();
-    }
-
-    private Optional<UUID> getUUID(String id) {
-        try {
-            return Optional.of(UUID.fromString(id));
-        } catch (Exception e) {
-            return Optional.empty();
-        }
-
     }
 
     public boolean existsByEmail(String email) {
