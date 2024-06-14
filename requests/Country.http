@@ -1,0 +1,23 @@
+### GET request to example server
+GET localhost:8080/country/
+
+###
+### POST request to Save a new country
+POST localhost:8080/country/
+content-type: application/json
+
+{
+    "name": "Bangladesh"
+}
+
+### Save a new State
+POST localhost:8080/country/0e8f975d-c71c-49e8-9594-69eedbabdda1/states/
+content-type: application/json
+
+{
+    "name": "Barisal"
+}
+
+
+### Get state  by id
+GET localhost:8080/country/0e8f975d-c71c-49e8-9594-69eedbabdda1/states/d10d76ea-f67f-4569-b455-b70d8b3f2944

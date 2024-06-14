@@ -1,13 +1,19 @@
 package br.com.estudo.casadocodigo.book.services;
 
+import static br.com.estudo.casadocodigo.book.mappers.BookMappers.bookToBookResponseListDto;
+import static br.com.estudo.casadocodigo.common.UUIDFunction.getUUID;
+
 import br.com.estudo.casadocodigo.author.models.Author;
 import br.com.estudo.casadocodigo.author.services.AuthorService;
+import br.com.estudo.casadocodigo.book.errors.BookNotFoundExceptions;
 import br.com.estudo.casadocodigo.book.model.Book;
 import br.com.estudo.casadocodigo.book.model.BookCreateDto;
+import br.com.estudo.casadocodigo.book.model.BookResponseListDto;
 import br.com.estudo.casadocodigo.book.repositories.BookRepository;
 import br.com.estudo.casadocodigo.category.model.Category;
 import br.com.estudo.casadocodigo.category.services.CategoryService;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +31,11 @@ public class BookService {
         return save(book);
     }
 
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public List<BookResponseListDto> findAll() {
+        return bookRepository.findAll()
+                .stream()
+                .map(bookToBookResponseListDto)
+                .toList();
     }
 
     private Book save(Book book) {
@@ -42,4 +51,10 @@ public class BookService {
     }
 
 
+    public Book findById(String id) {
+        return Optional.ofNullable(id)
+                .flatMap(getUUID)
+                .flatMap(bookRepository::findById)
+                .orElseThrow(() -> new BookNotFoundExceptions(id));
+    }
 }
